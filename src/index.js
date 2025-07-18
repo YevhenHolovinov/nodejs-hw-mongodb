@@ -1,8 +1,12 @@
 import express from 'express';
 import { Contact } from './models/contacts.js';
+import pino from 'pino-http';
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors());
+app.use(pino());
 app.get('/contacts', async (req, res) => {
   const contacts = await Contact.find();
   res.json({
