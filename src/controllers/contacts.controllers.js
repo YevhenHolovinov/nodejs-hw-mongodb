@@ -2,6 +2,7 @@ import { getContacts, getContact } from '../services/contacts.services.js';
 
 export async function getContactsControllers(req, res) {
   const contacts = await getContacts();
+
   res.json({
     status: 200,
     message: 'Successfully found contacts!',

@@ -12,12 +12,14 @@ const contactsSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      required: false,
     },
     isFavourite: {
       type: Boolean,
       default: false,
+      required: false,
     },
-    contavtType: {
+    contactType: {
       type: String,
       required: true,
       enum: ['home', 'personal', 'work'],
