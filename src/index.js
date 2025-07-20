@@ -15,6 +15,7 @@ app.use(
     },
   }),
 );
+app.use(express.json());
 app.use('/contacts', contactRouter);
 app.use(notFoundHandler);
 app.use(errorHendler);
