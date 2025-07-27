@@ -7,9 +7,11 @@ import {
   deleteContac,
   updateContact,
 } from '../services/contacts.services.js';
+import { parsePaginationPatams } from '../utils/parsePaginationPatams.js';
 
 export async function getContactsControllers(req, res) {
-  const contacts = await getContacts();
+  const { page, perPage } = parsePaginationPatams(req.query);
+  const contacts = await getContacts(page, perPage);
 
   res.json({
     status: 200,
