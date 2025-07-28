@@ -5,7 +5,7 @@ export async function getContacts(page, perPage, sortBy, sortOrder) {
 
   const contactsQuery = Contact.find();
 
-  const [total, contacts] = await Promise.all([
+  const [totalItems, contacts] = await Promise.all([
     Contact.find().countDocuments(),
     contactsQuery
       .sort({ [sortBy]: sortOrder })
@@ -13,13 +13,13 @@ export async function getContacts(page, perPage, sortBy, sortOrder) {
       .limit(perPage),
   ]);
 
-  const totalPages = Math.ceil(total / perPage);
+  const totalPages = Math.ceil(totalItems / perPage);
 
   return {
-    contacts,
-    total,
+    data: contacts,
     page,
     perPage,
+    totalItems,
     totalPages,
     hasNextPage: totalPages > page,
     hasPreviousPage: page > 1,
