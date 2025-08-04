@@ -1,7 +1,10 @@
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
 import contactRouter from './routes/contacts.routes.js';
+import authRouter from './routes/auth.routes.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHendler } from './middlewares/errorHendler.js';
 
@@ -16,7 +19,11 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(cookieParser());
+
+app.use('/auth', authRouter);
 app.use('/contacts', contactRouter);
+
 app.use(notFoundHandler);
 app.use(errorHendler);
 

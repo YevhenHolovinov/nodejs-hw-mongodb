@@ -25,9 +25,15 @@ const contactsSchema = new mongoose.Schema(
       enum: ['home', 'personal', 'work'],
       default: 'personal',
     },
+    ownerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'users',
+    },
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 
