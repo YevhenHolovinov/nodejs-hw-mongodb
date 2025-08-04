@@ -8,6 +8,7 @@ import { Session } from '../models/session.js';
 
 export async function registerUser(payload) {
   const user = await User.findOne({ email: payload.email });
+
   if (user !== null) {
     throw new createHttpError.Conflict('Email in use');
   }
@@ -45,7 +46,7 @@ export async function logoutUser(sessionId) {
 }
 
 export async function refreshSession({ sessionId, refreshToken }) {
-  const session = await Session.findOne({ sessionId });
+  const session = await Session.findById({ sessionId });
 
   if (session === null) {
     throw new createHttpError.Unauthorized('Session not found');
