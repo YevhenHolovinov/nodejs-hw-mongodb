@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 
-import { User } from '../models/user';
+import { User } from '../models/user.js';
 import { Session } from '../models/session.js';
 
 export async function registerUser(payload) {
