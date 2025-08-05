@@ -2,10 +2,11 @@ import createHttpError from 'http-errors';
 
 import {
   getContacts,
-  getContact,
+  getContactById,
   createContact,
   deleteContac,
   updateContact,
+  replaceContact,
 } from '../services/contacts.services.js';
 
 import { parsePaginationPatams } from '../utils/parsePaginationPatams.js';
@@ -14,7 +15,14 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 export async function getContactsControllers(req, res) {
   const { page, perPage } = parsePaginationPatams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
-  const contacts = await getContacts(page, perPage, sortBy, sortOrder);
+
+  const contacts = await getContacts(
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    req.user.id,
+  );
 
   res.json({
     status: 200,
@@ -24,7 +32,7 @@ export async function getContactsControllers(req, res) {
 }
 
 export async function getContactControllers(req, res) {
-  const contact = await getContact(req.params.id);
+  const contact = await getContactById(req.params.id, req.user.id);
 
   if (contact === null) {
     throw new createHttpError.NotFound('Contact not found');
@@ -38,7 +46,7 @@ export async function getContactControllers(req, res) {
 }
 
 export async function createContactsController(req, res) {
-  const contact = await createContact(req.body);
+  const contact = await createContact({ ...req.body, ownerId: req.user.id });
   console.log(contact);
   res.status(201).json({
     status: 201,
@@ -47,18 +55,18 @@ export async function createContactsController(req, res) {
   });
 }
 
-export async function deleteContactController(req, res, next) {
+export async function deleteContactController(req, res) {
   const result = await deleteContac(req.params.id);
-  console.log(result);
+
   if (result === null) {
     throw new createHttpError.NotFound('Contact not found');
   }
-  res.status(204).end();
+  res.json({ status: 200, message: 'Contact deleted successfully' });
 }
 
-export async function updateContactController(req, res, next) {
+export async function updateContactController(req, res) {
   const result = await updateContact(req.params.id, req.body);
-  console.log(result);
+
   if (result === null) {
     throw new createHttpError.NotFound('Contact not found');
   }
@@ -66,5 +74,26 @@ export async function updateContactController(req, res, next) {
     status: 200,
     message: 'Successfully patched a contact!',
     data: result,
+  });
+}
+
+export async function replaceStudentController(req, res) {
+  const { value, updateExisting } = await replaceContact(
+    req.params.id,
+    req.body,
+  );
+
+  if (updateExisting === true) {
+    return res.json({
+      status: 200,
+      message: 'Contact replaced successfully',
+      data: value,
+    });
+  }
+
+  res.status(201).json({
+    status: 201,
+    message: 'Contact created successfully',
+    data: value,
   });
 }

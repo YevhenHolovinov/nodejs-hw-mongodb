@@ -7,11 +7,16 @@ import {
   deleteContactController,
   updateContactController,
 } from '../controllers/contacts.controllers.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+
 import { isValidId } from '../middlewares/isValidId.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { contactsSchema } from '../validation/contacts.validation.js';
-import { updateContactsSchema } from '../validation/contacts.validation.js';
+
+import {
+  contactsSchema,
+  updateContactsSchema,
+} from '../validation/contacts.validation.js';
+
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = express.Router();
 
