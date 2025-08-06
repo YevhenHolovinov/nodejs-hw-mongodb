@@ -7,6 +7,7 @@ import {
 
 export async function registerController(req, res) {
   const user = await registerUser(req.body);
+
   res.json({
     ststus: 201,
     message: 'User registered successfully',
@@ -19,7 +20,7 @@ export async function loginController(req, res) {
 
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: session.refreshTokenValidUntil,
+    expire: session.refreshTokenValidUntil,
   });
 
   res.cookie('refreshToken', session.refreshToken, {

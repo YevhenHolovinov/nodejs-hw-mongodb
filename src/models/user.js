@@ -22,10 +22,10 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-userSchema.method.toJSON = function () {
+userSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
   return obj;
 };
 
-export const User = mongoose.model('user', userSchema);
+export const User = mongoose.model('User', userSchema);

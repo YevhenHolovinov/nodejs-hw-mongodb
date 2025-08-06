@@ -3,9 +3,10 @@ import express from 'express';
 import {
   getContactsControllers,
   getContactControllers,
-  createContactsController,
+  createContactController,
   deleteContactController,
   updateContactController,
+  replaceContactController,
 } from '../controllers/contacts.controllers.js';
 
 import { isValidId } from '../middlewares/isValidId.js';
@@ -27,7 +28,7 @@ router.get('/:id', isValidId, ctrlWrapper(getContactControllers));
 router.post(
   '/',
   validateBody(contactsSchema),
-  ctrlWrapper(createContactsController),
+  ctrlWrapper(createContactController),
 );
 
 router.delete('/:id', isValidId, ctrlWrapper(deleteContactController));
@@ -37,6 +38,13 @@ router.patch(
   validateBody(updateContactsSchema),
   isValidId,
   ctrlWrapper(updateContactController),
+);
+
+router.put(
+  '/:id',
+  isValidId,
+  validateBody(contactsSchema),
+  ctrlWrapper(replaceContactController),
 );
 
 export default router;

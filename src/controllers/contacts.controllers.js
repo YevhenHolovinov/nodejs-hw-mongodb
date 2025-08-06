@@ -45,9 +45,9 @@ export async function getContactControllers(req, res) {
   });
 }
 
-export async function createContactsController(req, res) {
-  const contact = await createContact({ ...req.body, ownerId: req.user.id });
-  console.log(contact);
+export async function createContactController(req, res) {
+  const contact = await createContact({ ...req.body, userId: req.user.id });
+
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
@@ -77,7 +77,7 @@ export async function updateContactController(req, res) {
   });
 }
 
-export async function replaceStudentController(req, res) {
+export async function replaceContactController(req, res) {
   const { value, updateExisting } = await replaceContact(
     req.params.id,
     req.body,

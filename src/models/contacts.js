@@ -12,7 +12,7 @@ const contactsSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: false,
+      required: true,
     },
     isFavourite: {
       type: Boolean,
@@ -25,7 +25,7 @@ const contactsSchema = new mongoose.Schema(
       enum: ['home', 'personal', 'work'],
       default: 'personal',
     },
-    ownerId: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'users',

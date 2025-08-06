@@ -10,7 +10,7 @@ export function validateBody(schema) {
       next();
     } catch (error) {
       const errors = error.details.map((detail) => detail.message);
-      console.log(errors);
+
       next(new createHttpError.BadRequest(errors));
     }
   };
