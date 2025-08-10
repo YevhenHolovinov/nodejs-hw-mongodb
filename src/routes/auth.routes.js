@@ -4,10 +4,10 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { loginSchema, registerSchema } from '../validation/auth.validation.js';
 
 import {
+  registerController,
   loginController,
   logoutController,
   refreshController,
-  registerController,
 } from '../controllers/auth.controller.js';
 
 import { validateBody } from '../middlewares/validateBody.js';

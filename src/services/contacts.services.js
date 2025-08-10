@@ -35,15 +35,15 @@ export function createContact(payload) {
 }
 
 export function deleteContac(contactId) {
-  return Contact.findByIdAndDelete(contactId);
+  return Contact.findOneAndDelete(contactId);
 }
 
 export function updateContact(contactId, payload) {
-  return Contact.findByIdAndUpdate(contactId, payload, { new: true });
+  return Contact.findOneAndUpdate(contactId, payload, { new: true });
 }
 
 export async function replaceContact(contactId, payload) {
-  const result = Contact.findByIdAndUpdate(contactId, payload, {
+  const result = Contact.findOneAndUpdate(contactId, payload, {
     new: true,
     upsert: true,
     includeResultMetadata: true,
