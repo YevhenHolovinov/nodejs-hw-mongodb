@@ -40,7 +40,7 @@ export async function getContactControllers(req, res) {
 
   res.json({
     status: 200,
-    message: `Successfully found contact with id ${req.params.id}!`,
+    message: 'Successfully get contact',
     data: contact,
   });
 }
@@ -61,7 +61,7 @@ export async function deleteContactController(req, res) {
   if (result === null) {
     throw new createHttpError.NotFound('Contact not found');
   }
-  res.json({ status: 204 });
+  res.status(204).end();
 }
 
 export async function updateContactController(req, res) {
@@ -70,7 +70,7 @@ export async function updateContactController(req, res) {
   if (result === null) {
     throw new createHttpError.NotFound('Contact not found');
   }
-  res.status(200).json({
+  res.json({
     status: 200,
     message: 'Successfully patched a contact!',
     data: result,

@@ -7,9 +7,8 @@ export function errorHendler(error, req, res, next) {
       .json({ status: error.statusCode, message: error.message });
   }
 
-  console.error(error);
   res.status(500).json({
     status: 500,
-    message: 'Something went wrong',
+    message: 'Internal Server Error',
   });
 }

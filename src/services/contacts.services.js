@@ -6,7 +6,7 @@ export async function getContacts(page, perPage, sortBy, sortOrder, userId) {
   const contactsQuery = Contact.find({ userId });
 
   const [totalItems, contacts] = await Promise.all([
-    Contact.find().countDocuments(),
+    Contact.find().merge(contactsQuery).countDocuments(),
     contactsQuery
       .sort({ [sortBy]: sortOrder })
       .skip(skip)
