@@ -34,7 +34,7 @@ export function createContact(payload) {
   return Contact.create(payload);
 }
 
-export function deleteContac(contactId) {
+export function deleteContact(contactId) {
   return Contact.findOneAndDelete(contactId);
 }
 

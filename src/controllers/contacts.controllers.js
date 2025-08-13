@@ -1,16 +1,16 @@
 import createHttpError from 'http-errors';
 
+import { parsePaginationPatams } from '../utils/parsePaginationPatams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+
 import {
   getContacts,
   getContactById,
   createContact,
-  deleteContac,
+  deleteContact,
   updateContact,
   replaceContact,
 } from '../services/contacts.services.js';
-
-import { parsePaginationPatams } from '../utils/parsePaginationPatams.js';
-import { parseSortParams } from '../utils/parseSortParams.js';
 
 export async function getContactsControllers(req, res) {
   const { page, perPage } = parsePaginationPatams(req.query);
@@ -56,7 +56,7 @@ export async function createContactController(req, res) {
 }
 
 export async function deleteContactController(req, res) {
-  const result = await deleteContac(req.params.id);
+  const result = await deleteContact(req.params.id);
 
   if (result === null) {
     throw new createHttpError.NotFound('Contact not found');
@@ -78,12 +78,12 @@ export async function updateContactController(req, res) {
 }
 
 export async function replaceContactController(req, res) {
-  const { value, updateExisting } = await replaceContact(
+  const { value, updatedExisting } = await replaceContact(
     req.params.id,
     req.body,
   );
 
-  if (updateExisting === true) {
+  if (updatedExisting === true) {
     return res.json({
       status: 200,
       message: 'Contact replaced successfully',

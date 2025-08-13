@@ -13,5 +13,5 @@ export const updateContactsSchema = Joi.object({
   phoneNumber: Joi.number(),
   email: Joi.string().email(),
   isFavourite: Joi.boolean(),
-  // contactType: Joi.string().valid('home', 'personal', 'work'),
+  contactType: Joi.string().valid('home', 'personal', 'work'),
 }).min(1);

@@ -45,7 +45,7 @@ export async function logoutUser(sessionId) {
   await Session.deleteOne({ _id: sessionId });
 }
 
-export async function refreshSession({ sessionId, refreshToken }) {
+export async function refreshSession(sessionId, refreshToken) {
   const session = await Session.findById(sessionId);
 
   if (session === null) {
