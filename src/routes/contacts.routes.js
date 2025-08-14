@@ -23,7 +23,7 @@ const router = express.Router();
 
 router.get('/', ctrlWrapper(getContactsControllers));
 
-router.get('/:contactId', isValidId, ctrlWrapper(getContactControllers));
+router.get('/:id', isValidId, ctrlWrapper(getContactControllers));
 
 router.post(
   '/',
@@ -31,17 +31,17 @@ router.post(
   ctrlWrapper(createContactController),
 );
 
-router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
+router.delete('/:id', isValidId, ctrlWrapper(deleteContactController));
 
 router.patch(
-  '/:contactId',
+  '/:id',
   validateBody(updateContactsSchema),
   isValidId,
   ctrlWrapper(updateContactController),
 );
 
 router.put(
-  '/:contactId',
+  '/:id',
   isValidId,
   validateBody(contactsSchema),
   ctrlWrapper(replaceContactController),
